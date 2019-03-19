@@ -5167,14 +5167,26 @@ if (manager) {
         }
     };
 
-    // закрытие попапа
+    makeSlideHandlers();
+
+    // закрытие попапов
+    // по клику на документе
     document.addEventListener('click', function () {
         for (var i = 0; i < featuresPopups.length; i++) {
             featuresPopups[i].classList.remove('active')
         }
     }, true);
 
-    makeSlideHandlers();
+    // по крестику
+    $('.manager__pop-close').on('click', function () {
+      console.log('popclick');
+       var popUp = $(this).closest('.manager__popup');
+        console.log(popUp);
+        setTimeout(function () {
+            popUp.removeClass('active');
+        }, 250);
+    });
+
 
     var widthMobile = window.matchMedia('(max-width: 599px)');
     var popupsPlace = document.querySelector('.manager__popups');
