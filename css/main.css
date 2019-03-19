@@ -19391,6 +19391,8 @@ input[type="radio"].visually-hidden {
     position: absolute;
     top: 0;
     right: 0; }
+    .manager__pop-close.btn-cross::before, .manager__pop-close.btn-cross::after {
+      width: 13px; }
   .manager__offer {
     font-size: 14px;
     line-height: 22px;
