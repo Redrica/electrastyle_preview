@@ -218,51 +218,108 @@
       <div class="breadcrumb__container hidden-xs">
         <div class="container">
           <ul class="breadcrumb">
-            <li><a href="#">Личный кабинет</a></li>
-            <li>Сменить пароль</li>
+            <li><a href="#">Контакты</a></li>
+            <li>Дилеры</li>
           </ul>
         </div>
       </div>
       <div class="catalog__container">
-        <div class="visible-xs mob-title"><a class="back-modal" href="#"></a><span>Сменить пароль</span></div>
+        <div class="visible-xs mob-title no-float"><a class="back-modal" href="#"></a><span>Дилеры</span></div>
         <div class="catalog__content">
-          <div class="title hidden-xs">
+          <div class="title hidden-xs no-float">
             <div class="title-box">
-              <div class="h1 account-title">Сменить пароль</div>
+              <div class="h1 contacts-title">Дилеры</div>
             </div>
           </div>
-          <section class="account">
-            <div class="container">
-              <div class="account__wrapper">
-                <ul class="account__list">
-                  <li class="account__list-item"><a class="account__list-link" href="#">Мой личный менеджер</a></li>
-                  <li class="account__list-item"><a href="#">История заказов</a></li>
-                  <li class="account__list-item"><a href="#">Мои данные</a></li>
-                  <li class="account__list-item"><a href="#">Мои магазины</a></li>
-                  <li class="account__list-item account__list-item--active"><a href="#">Сменить пароль</a></li>
-                  <li class="account__list-item"><a href="#">Избранное</a></li>
-                  <li class="account__list-item"><a href="#">Отзывы и вопросы</a></li>
-                </ul>
-                <div class="my-data account__my-data">
-                  <form class="my-data__form" action="#" method="#" id="change-password">
-                            <div class="input-field my-data__input">
-                              <input class="input-field__input input-field__input--password" id="new-password" type="password" name="new-password" placeholder="">
-                              <label class="input-field__label" for="new-password" aria-label="">Новый пароль</label>
-                            </div>
-                            <div class="input-field my-data__input">
-                              <input class="input-field__input input-field__input--password" id="new-password-confirm" type="password" name="new-password-confirm" placeholder="">
-                              <label class="input-field__label" for="new-password-confirm" aria-label="">Повторите пароль</label>
-                            </div>
-                    <button class="my-data__submit btn">Сохранить</button>
-                  </form>
+          <section class="dealers">
+            <div class="container dealers__container">
+              <div class="dealers__selection">
+                <form class="dealers__form">
+                  <div class="input-field dealers__input">
+                    <select class="input-field__input" id="country-select" name="country-select">
+                      <option value="Все страны">Все страны</option>
+                      <option value="Россия">Россия</option>
+                    </select>
+                  </div>
+                </form>
+                <div class="dealers__scroll">
+                  <div class="dealers__data scrollBox">
+                    <div class="dealers__content dealers__content--all">
+                      <div class="dealers__country">
+                        <p class="dealers__country-name"><span>Россия</span></p>
+                        <ul class="dealers__list">
+                          <li class="dealers__item dealer-block">
+                            <p class="dealer-block__title">Новосибирск</p>
+                            <p class="dealer-block__text">г. Новосибирск, ул. Гоголя,  д.204-А, офис 202</p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 383 311-01-15</a></p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 913 985-25-05</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                          </li>
+                          <li class="dealers__item dealer-block">
+                            <p class="dealer-block__title">Санкт-Петербург</p>
+                            <p class="dealer-block__text">Санкт-Петербург, ул. Заставская, д. 33 (метро Московские ворота)</p>
+                            <p class="dealer-block__text">пн-пт с 9.00 до 17.00</p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 812 677-56-03</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 911 946-04-90</a></p>
+                            <p class="dealer-block__text"><a href="mailto:alnair.spb@gmail.com">alnair.spb@gmail.com</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                          </li>
+                          <li class="dealers__item dealer-block">
+                            <p class="dealer-block__title">Новосибирск</p>
+                            <p class="dealer-block__text">г. Новосибирск, ул. Гоголя,  д.204-А, офис 202</p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 383 311-01-15</a></p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 913 985-25-05</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="dealers__country">
+                        <p class="dealers__country-name"><span>Страна</span></p>
+                        <ul class="dealers__list">
+                          <li class="dealers__item dealer-block">
+                            <p class="dealer-block__title">Новосибирск</p>
+                            <p class="dealer-block__text">г. Новосибирск, ул. Гоголя,  д.204-А, офис 202</p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 383 311-01-15</a></p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 913 985-25-05</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                          </li>
+                          <li class="dealers__item dealer-block">
+                            <p class="dealer-block__title">Санкт-Петербург</p>
+                            <p class="dealer-block__text">Санкт-Петербург, ул. Заставская, д. 33 (метро Московские ворота)</p>
+                            <p class="dealer-block__text">пн-пт с 9.00 до 17.00</p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 812 677-56-03</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 911 946-04-90</a></p>
+                            <p class="dealer-block__text"><a href="mailto:alnair.spb@gmail.com">alnair.spb@gmail.com</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                          </li>
+                          <li class="dealers__item dealer-block">
+                            <p class="dealer-block__title">Новосибирск</p>
+                            <p class="dealer-block__text">г. Новосибирск, ул. Гоголя,  д.204-А, офис 202</p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 383 311-01-15</a></p>
+                            <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 913 985-25-05</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="dealers__content dealers__content--country hidden">
+                      <ul class="dealers__list">
+                        <li class="dealers__item dealer-block">
+                          <p class="dealer-block__title">Новосибирск</p>
+                          <p class="dealer-block__text">г. Новосибирск, ул. Гоголя,  д.204-А, офис 202</p>
+                          <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 383 311-01-15</a></p>
+                          <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 913 985-25-05</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                        </li>
+                        <li class="dealers__item dealer-block">
+                          <p class="dealer-block__title">Санкт-Петербург</p>
+                          <p class="dealer-block__text">Санкт-Петербург, ул. Заставская, д. 33 (метро Московские ворота)</p>
+                          <p class="dealer-block__text">пн-пт с 9.00 до 17.00</p>
+                          <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 812 677-56-03</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 911 946-04-90</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                        </li>
+                        <li class="dealers__item dealer-block">
+                          <p class="dealer-block__title">Новосибирск</p>
+                          <p class="dealer-block__text">г. Новосибирск, ул. Гоголя,  д.204-А, офис 202</p>
+                          <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 383 311-01-15</a></p>
+                          <p class="dealer-block__text"><a class="dealer-block__link" href="tel:+73832080633">+7 383 208-06-33</a><span>/</span><a class="dealer-block__link" href="tel:+73832080633">+7 913 985-25-05</a></p><a class="dealer-block__map-link" href="#">Посмотреть на карте</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="modal-password modal-password--closed">
-                <div class="modal-password__content">
-                  <p class="modal-password__text">Ваш пароль успешно изменен!</p>
-                  <button class="modal-password__close btn-cross" type="button" aria-label="закрыть попап"></button>
-                </div>
-              </div>
+              <div class="dealers__map" id="map-dealers"></div>
             </div>
           </section>
         </div>
@@ -1081,5 +1138,8 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script>
 <![endif]-->
     <script src="js/common.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcFoIRQF38N8c4CTPd-EqGs6zvPxVDgS8"></script>
+    <script src="js/gmaps.min.js"></script>
+    <script src="js/dealers-map.js"></script>
   </body>
 </html>

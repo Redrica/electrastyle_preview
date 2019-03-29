@@ -225,12 +225,6 @@
       </div>
       <div class="catalog__container">
         <div class="visible-xs mob-title"><a class="back-modal" href="#"></a><span>Мои магазины</span></div>
-        <!-- - класс обертки, класс инпута, id,-->
-        <!-- - тип поля, имя поля, плейсхолдер,-->
-        <!-- - класс для label, aria-label, текст подписи-->
-        <!-- - класс обертки, класс инпута, id,-->
-        <!-- - имя поля, класс для label, текст подписи-->
-        <!-- - значение по умолчанию, опции-->
         <div class="catalog__content">
           <div class="title hidden-xs">
             <div class="title-box">
@@ -252,10 +246,10 @@
                 <div class="my-shops account__shops shops-exists">
                   <div class="my-shops__header">
                     <p class="my-shops__text">Мы будем дарить Вам клиентов!</p>
-                    <p class="my-shops__text">Информация о Вашем магазине будет отображаться на странице «Где купить»!</p><a class="my-shops__link-add" href="#"><span>+</span>Добавить магазин</a>
-                    <p class="my-shops__text-add">Добавление нового магазина</p>
+                    <p class="my-shops__text my-shops__text--last">Информация о Вашем магазине будет отображаться на странице «Где купить»!</p><a class="my-shops__link-add" href="#"><span>+</span>Добавить магазин</a>
                   </div>
                   <form class="my-shops__form add-shop" action="#" method="#">
+                    <!--p.my-shops__text-add Добавление нового магазина-->
                     <div class="add-shop__wrapper">
                       <div class="add-shop__fields">
                                 <div class="input-field add-shop__input">
@@ -277,11 +271,11 @@
                                   <label class="input-field__label input-field__label--hidden" for="city-select">Город</label>
                                 </div>
                                 <div class="input-field add-shop__input">
-                                  <input class="input-field__input" id="shop-name" type="text" name="shop-name" placeholder="">
+                                  <input class="input-field__input" id="shop-name" type="text" name="shop-name" placeholder="Магазин">
                                   <label class="input-field__label input-field__label--hidden" for="shop-name" aria-label="">Название магазина</label>
                                 </div>
                                 <div class="input-field add-shop__input">
-                                  <input class="input-field__input" id="tc-name" type="text" name="tc-name" placeholder="">
+                                  <input class="input-field__input" id="tc-name" type="text" name="tc-name" placeholder="Торговый центр">
                                   <label class="input-field__label input-field__label--hidden" for="tc-name" aria-label="">Торговый центр</label>
                                 </div>
                       </div>
@@ -296,7 +290,7 @@
                     <div class="add-shop__fields add-shop__fields--bottom">
                       <div class="add-shop__address">
                                 <div class="input-field add-shop__input">
-                                  <input class="input-field__input" id="street" type="text" name="street" placeholder="">
+                                  <input class="input-field__input" id="street" type="text" name="street" placeholder="Улица">
                                   <label class="input-field__label input-field__label--hidden" for="street" aria-label="">Улица</label>
                                 </div>
                         <div class="add-shop__address-wrap">
@@ -458,8 +452,7 @@
                                 <button class="shop__del btn-cross" aria-label="Удалить магазин"></button><a class="shop__link-more" href="#">Подробнее</a><a class="shop__edit" href="#">Редактировать</a>
                               </article>
                     </li>
-                  </ul>
-                  <!-- кнопка должна выводиться, если магазинов много--><a class="my-shops__all btn btn-white" href="#">Смотреть все</a>
+                  </ul><a class="my-shops__all btn btn-white" href="#">Смотреть все</a>
                 </div>
                 <div class="shop-dp shop-dp--closed">
                   <div class="shop-dp__overlay"></div>
