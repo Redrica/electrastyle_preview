@@ -4971,31 +4971,40 @@ $('.order__link-more').on('click', function (evt) {
 
     if ($(this).hasClass('ord-opened')) {
       $(parentBox).find('.order__link-more--tab-up').removeClass('shown');
-      $(parentBox).find('.order__summary-item:not(:first-child)').slideDown(400);
-      $(parentBox).find('.order__inner').slideUp(800);
-      setTimeout(function () {
-          $(parentBox).removeClass('order--opened');
+
+      if (window.matchMedia('(max-width: 767px)').matches) {
+          $(parentBox).find('.order__inner').slideUp(200);
+      } else if (window.matchMedia('(min-width: 768px)').matches) {
+          $(parentBox).find('.order__inner').slideUp(250);
+      }
+
+      $(parentBox).removeClass('order--opened');
+
+        setTimeout(function () {
           $(parentBox).find('.order__link-more').removeClass('ord-opened').text('Подробнее');
-      }, 900);
+          $(parentBox).find('.order__summary-item:not(:first-child)').fadeIn(250);
+        }, 250);
     }
     else {
-      $(parentBox).find('.order__summary-item:not(:first-child)').slideUp(400);
+      $(parentBox).find('.order__summary-item:not(:first-child)').fadeOut(0);
       $(parentBox).find('.order__link-more').addClass('ord-opened').text('Свернуть');
       $(parentBox).addClass('order--opened');
-      $(parentBox).find('.order__inner').slideDown(800);
+
+      if (window.matchMedia('(max-width: 767px)').matches) {
+          $(parentBox).find('.order__inner').slideDown(750);
+      } else if (window.matchMedia('(min-width: 768px)').matches) {
+          $(parentBox).find('.order__inner').slideDown(250);
+      }
+
       setTimeout(function () {
           $(parentBox).find('.order__link-more--tab-up').addClass('shown')
-      }, 900)
+      }, 250)
     }
 });
 /* конец раскрытия карточек */
 
-/* маска на поле ввода телефона в форме регистрации магазина */
-$(".input-field__input[type='tel']").mask('+7 (999) 999-99-99');
-/**/
-
-/* селекты на странице Мои магизины */
-if ($('.my-shops') || $('.my-data')) {
+/* селекты на странице Мои магазины */
+if ($('.my-shops') || $('.my-data') || $('.dealers')) {
     easydropdown.all({
         behavior: {
             useNativeUiOnMobile: false
@@ -5003,41 +5012,73 @@ if ($('.my-shops') || $('.my-data')) {
     });
 }
 
-/* раскрытие карточек магазинов */
-$('.shop__link-more').on('click', function (evt) {
-    evt.preventDefault();
-    var parentBox = $(this).closest('.shop');
+var myShops = document.querySelector('.my-shops');
+if (myShops) {
 
-    if ($(this).hasClass('shop-opened')) {
-        $(this).removeClass('shop-opened').text('Подробнее');
-        $(parentBox).removeClass('shop--opened');
-        $(parentBox).find('.shop__additional').slideUp(400);
-        $(parentBox).find('.shop__logo').slideUp(400);
+    /* показ формы добавления магазина */
+    var linkAdd = $('.my-shops__link-add'),
+        addForm = $('.my-shops__form');
 
-    }
-    else {
-        $(this).addClass('shop-opened').text('Свернуть');
-        $(parentBox).addClass('shop--opened');
-        $(parentBox).find('.shop__additional').slideDown(400);
-        $(parentBox).find('.shop__logo').slideDown(400);
-    }
-});
+    $(linkAdd).on('click', function (evt) {
+        evt.preventDefault();
+        $(this).text('Добавление нового магазина').removeAttr('href')
+            .css('color', '#5f7081')
+            .css('border-color', 'white')
+            .css('background-color', 'white');
 
-/* попап удаления магазина */
-$('.shop__del').on('click', function () {
-    $('.shop-dp').removeClass('shop-dp--closed');
+        $(addForm).slideDown(600);
 
-    var shopForDel = $(this).closest('.my-shops__item');
-
-    $('.shop-dp #del-shop').on('click', function () {
-      $(shopForDel).remove();
-      $('.shop-dp').addClass('shop-dp--closed');
+        $(addForm).on('submit', function () {
+            evt.preventDefault();
+            $(this).slideUp(0);
+            $(linkAdd).html('<span>+</span> Добавить магазин')
+                .attr('href', '#')
+                .css('color', '')
+                .css('border-color', '')
+                .css('background-color', '');
+        })
     });
 
-    $('.shop-dp [data-close]').on('click', function () {
-        $('.shop-dp').addClass('shop-dp--closed');
+    /* маска на поле ввода телефона в форме регистрации магазина */
+    $(".input-field__input[type='tel']").mask('+7 (999) 999-99-99');
+    /**/
+
+    /* раскрытие карточек магазинов */
+    $('.shop__link-more').on('click', function (evt) {
+        evt.preventDefault();
+        var parentBox = $(this).closest('.shop');
+
+        if ($(this).hasClass('shop-opened')) {
+            $(this).removeClass('shop-opened').text('Подробнее');
+            $(parentBox).removeClass('shop--opened');
+            $(parentBox).find('.shop__additional').slideUp(400);
+            $(parentBox).find('.shop__logo').slideUp(400);
+
+        }
+        else {
+            $(this).addClass('shop-opened').text('Свернуть');
+            $(parentBox).addClass('shop--opened');
+            $(parentBox).find('.shop__additional').slideDown(400);
+            $(parentBox).find('.shop__logo').slideDown(400);
+        }
     });
-});
+
+    /* попап удаления магазина */
+    $('.shop__del').on('click', function () {
+        $('.shop-dp').removeClass('shop-dp--closed');
+
+        var shopForDel = $(this).closest('.my-shops__item');
+
+        $('.shop-dp #del-shop').on('click', function () {
+            $(shopForDel).remove();
+            $('.shop-dp').addClass('shop-dp--closed');
+        });
+
+        $('.shop-dp [data-close]').on('click', function () {
+            $('.shop-dp').addClass('shop-dp--closed');
+        });
+    });
+}
 
 /* слайдеры в статье */
 
@@ -5153,17 +5194,18 @@ if (manager) {
     var featuresSlides = document.querySelectorAll('.manager__feature');
     var featuresPopups = document.querySelectorAll('.manager__popup');
 
-    // появление попапа по клику на слайд
+    // появление попапа по клику на слайд (до 1024px включительно)
     var makeSlideHandlers = function () {
         for (var i = 0; i < featuresSlides.length; i++) {
             featuresSlides[i].addEventListener('click', setSlideClickHandler(i));
-            // featuresSlides[i].addEventListener('mouseover', setSlideClickHandler(i));
         }
     };
 
     var setSlideClickHandler = function (i) {
         return function () {
-            featuresPopups[i].classList.add('active');
+          if (window.matchMedia('(max-width: 1024px)').matches) {
+              featuresPopups[i].classList.add('active');
+          }
         }
     };
 
@@ -5184,7 +5226,11 @@ if (manager) {
         console.log(popUp);
         setTimeout(function () {
             popUp.removeClass('active');
+<<<<<<< HEAD
         }, 250);
+=======
+        }, 150);
+>>>>>>> gh-pages
     });
 
 
@@ -5354,7 +5400,7 @@ if (contacts) {
 var questions = document.querySelector('.questions');
 if (questions) {
     // табы
-    $('.questions__tab').on('click', function (evt) {
+    $('.questions__tab').on('click', function(evt) {
         evt.preventDefault();
         if ($(this).hasClass('tabs__tab--active')) {
             return false;
@@ -5385,5 +5431,84 @@ if (questions) {
     }
 }
 
+var changePassword = document.getElementById('change-password');
+if (changePassword) {
 
+    // модальное окно при изменении пароля
 
+  var modalPassword = document.querySelector('.modal-password');
+
+  changePassword.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+      modalPassword.classList.remove('modal-password--closed');
+      modalPassword.querySelector('.modal-password__close').addEventListener('click', function () {
+          modalPassword.classList.add('modal-password--closed');
+      })
+  })
+}
+
+var lookbook = document.querySelector('.lookbook-inner');
+if (lookbook) {
+
+  var lbSlider = $('.lb-slider');
+  $(lbSlider).slick({
+      responsive: [
+          {
+              breakpoint: 4000,
+              settings: 'unslick'
+          },
+          {
+              breakpoint: 920,
+              settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  arrows: true,
+                  fade: false,
+                  dots: false,
+                  autoplay: false,
+                  speed: 500
+              }
+          }
+      ]
+  })
+}
+
+var dealers = document.querySelector('.dealers');
+if (dealers) {
+
+    // выбор страны
+    var select = document.getElementById('country-select');
+    var dealersGroups = dealers.querySelectorAll('.dealers__content');
+
+    select.addEventListener('change', function() {
+        var index = select.options.selectedIndex;
+
+        for (var i = 0; i < select.options.length; i++) {
+        dealersGroups[i].classList.add('hidden');
+        dealersGroups[index].classList.remove('hidden');
+      }
+    });
+
+    // сворачивание списка дилеров
+    var country = $('.dealers__country-name');
+    $(country).on('click', function () {
+        var parentBox = $(this).closest('.dealers__country');
+
+        if ($(this).hasClass('closed')) {
+            $(this).removeClass('closed');
+            $(parentBox).find('.dealers__list').slideDown();
+        } else {
+            $(this).addClass('closed');
+            $(parentBox).find('.dealers__list').slideUp();
+        }
+    });
+
+    // скролл контейнера
+    var scrollContainer = dealers.querySelector('.dealers__data');
+        var ps = new PerfectScrollbar(scrollContainer, {
+            suppressScrollX: true,
+            scrollingThreshold: 2000
+        });
+
+        ps.update();
+}
