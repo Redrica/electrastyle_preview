@@ -5226,11 +5226,7 @@ if (manager) {
         console.log(popUp);
         setTimeout(function () {
             popUp.removeClass('active');
-<<<<<<< HEAD
-        }, 250);
-=======
         }, 150);
->>>>>>> gh-pages
     });
 
 

@@ -19579,12 +19579,9 @@ input[type="radio"].visually-hidden {
     right: 0; }
     .manager__pop-close.btn-cross::before, .manager__pop-close.btn-cross::after {
       width: 13px; }
-<<<<<<< HEAD
-=======
     @media (min-width: 1025px) {
       .manager__pop-close {
         display: none; } }
->>>>>>> gh-pages
   .manager__offer {
     font-size: 14px;
     line-height: 22px;
