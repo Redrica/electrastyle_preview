@@ -20915,7 +20915,7 @@ input[type="radio"].visually-hidden {
         content: '';
         width: 15px;
         height: 7px;
-        background-image: url("../../images/icons/arrow-select.png");
+        background-image: url("../images/icons/arrow-select.png");
         -webkit-background-size: 100% 100%;
                 background-size: 100%;
         -webkit-transform-origin: center;
