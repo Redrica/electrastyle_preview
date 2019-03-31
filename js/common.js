@@ -5021,22 +5021,17 @@ if (myShops) {
 
     $(linkAdd).on('click', function (evt) {
         evt.preventDefault();
-        $(this).text('Добавление нового магазина').removeAttr('href')
-            .css('color', '#5f7081')
-            .css('border-color', 'white')
-            .css('background-color', 'white');
 
-        $(addForm).slideDown(600);
+        if ($(this).hasClass('my-shops__link-add--active')) {
+          $(this).removeClass('my-shops__link-add--active')
+              .text('Добавить магазин');
+          $(addForm).slideUp(0);
 
-        $(addForm).on('submit', function () {
-            evt.preventDefault();
-            $(this).slideUp(0);
-            $(linkAdd).html('<span>+</span> Добавить магазин')
-                .attr('href', '#')
-                .css('color', '')
-                .css('border-color', '')
-                .css('background-color', '');
-        })
+        } else {
+          $(this).addClass('my-shops__link-add--active')
+              .text('Добавление нового магазина');
+          $(addForm).slideDown(600);
+        }
     });
 
     /* маска на поле ввода телефона в форме регистрации магазина */

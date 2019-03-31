@@ -14598,7 +14598,7 @@ input[type="radio"].visually-hidden {
     .account__list-item a:hover {
       color: #ddab9e; }
   .account__list-item--active a {
-    color: #cea89c; }
+    color: #ddab9e; }
   @media (min-width: 768px) {
     .account__shops {
       max-width: 678px; } }
@@ -15789,6 +15789,7 @@ input[type="radio"].visually-hidden {
     font-size: 18px;
     line-height: 27px;
     font-weight: 400;
+    position: relative;
     display: block;
     width: 100%;
     margin: 0 0 30px;
@@ -15804,7 +15805,7 @@ input[type="radio"].visually-hidden {
         display: inline-block;
         width: auto;
         margin-bottom: 40px;
-        padding: 0;
+        padding: 0 0 0 20px;
         border: none; } }
     @media (min-width: 1366px) {
       .my-shops__link-add {
@@ -15816,10 +15817,43 @@ input[type="radio"].visually-hidden {
         .my-shops__link-add:hover {
           background-color: transparent;
           color: #5f7081; } }
-    .my-shops__link-add span {
-      font-size: 28px;
-      line-height: 0;
-      margin-right: 5px; }
+    .my-shops__link-add::before, .my-shops__link-add::after {
+      position: absolute;
+      content: '';
+      width: 14px;
+      height: 1px;
+      background-color: currentColor;
+      -webkit-transform-origin: center;
+          -ms-transform-origin: center;
+              transform-origin: center;
+      -webkit-transition: -webkit-transform 0.3s;
+      transition: -webkit-transform 0.3s;
+      -o-transition: transform 0.3s;
+      transition: transform 0.3s;
+      transition: transform 0.3s, -webkit-transform 0.3s; }
+    .my-shops__link-add::before {
+      top: 14px;
+      left: -4px; }
+    .my-shops__link-add::after {
+      top: 14px;
+      left: -4px;
+      -webkit-transform: rotate(90deg);
+          -ms-transform: rotate(90deg);
+              transform: rotate(90deg); }
+    .my-shops__link-add--active {
+      border-color: #ffffff;
+      background-color: #ffffff;
+      color: #5f7081; }
+      .my-shops__link-add--active::before {
+        -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+                transform: rotate(45deg); }
+      .my-shops__link-add--active::after {
+        -webkit-transform: rotate(135deg);
+            -ms-transform: rotate(135deg);
+                transform: rotate(135deg); }
+      .my-shops__link-add--active:hover {
+        color: #ddab9e; }
   .my-shops__form {
     margin-bottom: 37px; }
     @media (min-width: 768px) {
@@ -15860,10 +15894,6 @@ input[type="radio"].visually-hidden {
         margin-right: auto; } }
     .my-shops__all:hover {
       background-color: #ddab9e; }
-
-/* если уже есть магазины – */
-.my-shops.shops-exists .my-shops__text-add {
-  display: block; }
 
 /* блок загрузки лого магазина */
 /* переменные */
