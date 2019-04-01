@@ -5024,12 +5024,12 @@ if (myShops) {
 
         if ($(this).hasClass('my-shops__link-add--active')) {
           $(this).removeClass('my-shops__link-add--active')
-              .text('Добавить магазин');
+              .html('<span>Добавить магазин</span>');
           $(addForm).slideUp(0);
 
         } else {
           $(this).addClass('my-shops__link-add--active')
-              .text('Добавление нового магазина');
+              .html('<span>Добавление нового магазина</span>');
           $(addForm).slideDown(600);
         }
     });
@@ -5139,35 +5139,13 @@ $(blogSlider).slick({
     arrows: true,
     fade: false,
     dots: false,
-    autoplay: false
+    autoplay: false,
+    speed: 500
 });
 
 
 var manager = document.querySelector('.manager');
 if (manager) {
-
-    var managerFeaturesSlider = $('.manager__slider');
-
-    $(managerFeaturesSlider).slick({
-        responsive: [
-            {
-                breakpoint: 4000,
-                settings: 'unslick'
-            },
-            {
-                breakpoint: 599,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    arrows: true,
-                    fade: true,
-                    dots: false,
-                    autoplay: false,
-                    speed: 250
-                }
-            }
-        ]
-    });
 
     /* раскрытие информации менеджера */
 
@@ -5184,9 +5162,45 @@ if (manager) {
     });
     /* конец раскрытия карточек */
 
+    /* слайдер с фичами */
+    var managerFeaturesSlider = $('.manager__slider');
+    var mobileWidthOnLoad = $(window).width();
+
+    var makeManagerSlick = function () {
+        $(managerFeaturesSlider).slick({
+            responsive: [
+                {
+                    breakpoint: 4000,
+                    settings: 'unslick'
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        arrows: true,
+                        fade: false,
+                        dots: false,
+                        autoplay: false,
+                        speed: 500
+                    }
+                }
+            ]
+        });
+    };
+
+    makeManagerSlick();
+
+    $(window).on('resize', function () {
+        $(managerFeaturesSlider).slick('unslick');
+        setTimeout(makeManagerSlick(), 500);
+
+        closePopups();
+    });
+
     /* информационный попап на странице менеджера*/
 
-    var featuresSlides = document.querySelectorAll('.manager__feature');
+    var featuresSlides = document.querySelectorAll('.manager__feature:not(.slick-cloned)');
     var featuresPopups = document.querySelectorAll('.manager__popup');
 
     // появление попапа по клику на слайд (до 1024px включительно)
@@ -5206,25 +5220,28 @@ if (manager) {
 
     makeSlideHandlers();
 
-    // закрытие попапов
-    // по клику на документе
-    document.addEventListener('click', function () {
+    /* закрытие попапов */
+    // функция закрытия
+    var closePopups = function () {
         for (var i = 0; i < featuresPopups.length; i++) {
             featuresPopups[i].classList.remove('active')
         }
+    };
+
+    // по клику на документе
+    document.addEventListener('click', function () {
+        closePopups();
     }, true);
 
     // по крестику
     $('.manager__pop-close').on('click', function () {
-      console.log('popclick');
        var popUp = $(this).closest('.manager__popup');
-        console.log(popUp);
         setTimeout(function () {
             popUp.removeClass('active');
         }, 150);
     });
 
-
+    /* для слайдера попапы должны быть снаружи, иначе они обрезаются контейнером слайдера */
     var widthMobile = window.matchMedia('(max-width: 599px)');
     var popupsPlace = document.querySelector('.manager__popups');
 
@@ -5244,7 +5261,7 @@ if (manager) {
         }
     };
 
-    if (!widthMobile.matches) {
+    if (mobileWidthOnLoad > 599) {
         movePopupsIntoCards();
     }
 
@@ -5283,6 +5300,7 @@ if (contacts) {
     // функция переноса
     var moveMap = function (from, to) {
         for (var i = 0; i < maps.length; i++) {
+          console.log(maps[i]);
             var removed = from[i].removeChild(maps[i]);
             to[i].appendChild(removed);
         }
@@ -5295,9 +5313,9 @@ if (contacts) {
     // следилка за шириной
     var mapHandler = function () {
         if (widthLaptop.matches) {
-            moveMap(laptopPlaces, mobilePlaces);
-        } else {
             moveMap(mobilePlaces, laptopPlaces);
+        } else {
+            moveMap(laptopPlaces, mobilePlaces);
         }
     };
 
@@ -5420,6 +5438,14 @@ if (questions) {
 
       ps.update();
     }
+
+    /* отображение подсказки */
+    var questionsTip = document.querySelector('.questions__tip');
+    var questionItems = document.querySelectorAll('.questions__list-item');
+
+    if (questionItems.length === 0) {
+      questionsTip.classList.remove('hidden');
+    }
 }
 
 var changePassword = document.getElementById('change-password');
@@ -5428,13 +5454,24 @@ if (changePassword) {
     // модальное окно при изменении пароля
 
   var modalPassword = document.querySelector('.modal-password');
+  var modalClose = modalPassword.querySelector('.modal-password__close');
 
   changePassword.addEventListener('submit', function (evt) {
       evt.preventDefault();
       modalPassword.classList.remove('modal-password--closed');
-      modalPassword.querySelector('.modal-password__close').addEventListener('click', function () {
-          modalPassword.classList.add('modal-password--closed');
-      })
+      document.body.style.position = 'fixed';
+
+      if ($(window).width() > 600) {
+          modalClose.addEventListener('click', function () {
+              modalPassword.classList.add('modal-password--closed');
+              document.body.style.position = '';
+          })
+      } else {
+          modalPassword.addEventListener('click', function () {
+              modalPassword.classList.add('modal-password--closed');
+              document.body.style.position = '';
+          })
+      }
   })
 }
 
@@ -5442,26 +5479,36 @@ var lookbook = document.querySelector('.lookbook-inner');
 if (lookbook) {
 
   var lbSlider = $('.lb-slider');
-  $(lbSlider).slick({
-      responsive: [
-          {
-              breakpoint: 4000,
-              settings: 'unslick'
-          },
-          {
-              breakpoint: 920,
-              settings: {
-                  slidesToShow: 1,
-                  slidesToScroll: 1,
-                  arrows: true,
-                  fade: false,
-                  dots: false,
-                  autoplay: false,
-                  speed: 500
+
+  var makeLbSlick = function () {
+      $(lbSlider).slick({
+          responsive: [
+              {
+                  breakpoint: 4000,
+                  settings: 'unslick'
+              },
+              {
+                  breakpoint: 920,
+                  settings: {
+                      slidesToShow: 1,
+                      slidesToScroll: 1,
+                      arrows: true,
+                      fade: false,
+                      dots: false,
+                      autoplay: false,
+                      speed: 500
+                  }
               }
-          }
-      ]
-  })
+          ]
+      })
+  };
+
+  makeLbSlick();
+
+    $(window).on('resize', function () {
+        $(lbSlider).slick('unslick');
+        makeLbSlick();
+    });
 }
 
 var dealers = document.querySelector('.dealers');
