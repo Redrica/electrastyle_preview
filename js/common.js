@@ -5003,11 +5003,11 @@ $('.order__link-more').on('click', function (evt) {
 });
 /* конец раскрытия карточек */
 
-/* селекты на странице Мои магазины */
+/* СЕЛЕКТЫ */
 if ($('.my-shops') || $('.my-data') || $('.dealers')) {
     easydropdown.all({
         behavior: {
-            useNativeUiOnMobile: false
+            useNativeUiOnMobile: true
         }
     });
 }
