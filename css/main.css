@@ -14817,7 +14817,7 @@ input[type="radio"].visually-hidden {
     content: "";
     display: block;
     clear: both; }
-  @media (min-width: 320px) {
+  @media (min-width: 360px) {
     .order {
       padding: 0 28px 0 36px; } }
   @media (min-width: 768px) {
@@ -15280,9 +15280,11 @@ input[type="radio"].visually-hidden {
       .order-details__color {
         width: 234px; } }
     .order-details__color a {
-      padding-left: 110px; }
+      float: right;
+      padding-left: 115px; }
       @media (min-width: 768px) {
         .order-details__color a {
+          float: none;
           margin-bottom: 13px;
           padding-left: 0;
           line-height: 24px; } }
@@ -15299,7 +15301,7 @@ input[type="radio"].visually-hidden {
     .order-details__quantity {
       width: 156px; } }
   .order-details__quantity.calc-item-box {
-    margin: 18px 75px 0 7px; }
+    margin: 18px 18px 0 7px; }
     @media (min-width: 768px) {
       .order-details__quantity.calc-item-box {
         margin: 0; } }
@@ -15317,12 +15319,14 @@ input[type="radio"].visually-hidden {
   .order-details__quantity .i-box {
     margin-left: 4px; }
   .order-details__price {
-    margin-left: 5px;
+    float: right;
     margin-top: 54px;
+    margin-right: 19px;
     font-size: 24px;
     line-height: 24px; }
     @media (min-width: 768px) {
       .order-details__price {
+        float: none;
         margin: 38px 0 0; } }
 
 /* текстовое поле ввода или селект */
