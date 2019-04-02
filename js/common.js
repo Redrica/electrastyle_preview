@@ -5004,25 +5004,25 @@ $('.order__link-more').on('click', function (evt) {
 /* конец раскрытия карточек */
 
 /* СЕЛЕКТЫ */
-// if ($('.my-shops') || $('.my-data') || $('.dealers')) {
-//     easydropdown.all({
-//         behavior: {
-//             useNativeUiOnMobile: true
-//         }
-//     });
-// }
-
-var eddShops = easydropdown('#type', {
-    behavior: {
-            useNativeUiOnMobile: false
-        }
-});
-
-var eddData = easydropdown('#position', {
-    behavior: {
+var myData = document.querySelector('.my-data');
+if (myShops || myData || dealers) {
+    easydropdown.all({
+        behavior: {
             useNativeUiOnMobile: true
         }
-});
+    });
+    var eddShops = easydropdown('#type', {
+        behavior: {
+            useNativeUiOnMobile: false
+        }
+    });
+
+    var eddData = easydropdown('#position', {
+        behavior: {
+            useNativeUiOnMobile: true
+        }
+    });
+}
 
 var myShops = document.querySelector('.my-shops');
 if (myShops) {
@@ -5512,15 +5512,28 @@ if (lookbook) {
                   }
               }
           ]
-      })
+      });
+      console.log('slick\'s been made');
   };
 
   makeLbSlick();
 
+  var tabletUpWidth = window.matchMedia('min-width: 920px');
+
+  // var lbSliderHandler = function () {
+  //   if (tabletUpWidth.matches) {
+  //       $(lbSlider).slick('unslick');
+  //   } else if (!tabletUpWidth.matches){
+  //       $(lbSlider).slick('unslick');
+  //       makeLbSlick();
+  //   }
+  // };
+
     $(window).on('resize', function () {
-        $(lbSlider).slick('unslick');
-        makeLbSlick();
+      $(lbSlider).slick('unslick');
+      makeLbSlick()
     });
+    // tabletUpWidth.addListener(lbSliderHandler);
 }
 
 var dealers = document.querySelector('.dealers');
