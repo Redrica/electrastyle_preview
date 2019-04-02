@@ -5004,13 +5004,25 @@ $('.order__link-more').on('click', function (evt) {
 /* конец раскрытия карточек */
 
 /* СЕЛЕКТЫ */
-if ($('.my-shops') || $('.my-data') || $('.dealers')) {
-    easydropdown.all({
-        behavior: {
+// if ($('.my-shops') || $('.my-data') || $('.dealers')) {
+//     easydropdown.all({
+//         behavior: {
+//             useNativeUiOnMobile: true
+//         }
+//     });
+// }
+
+var eddShops = easydropdown('#type', {
+    behavior: {
+            useNativeUiOnMobile: false
+        }
+});
+
+var eddData = easydropdown('#position', {
+    behavior: {
             useNativeUiOnMobile: true
         }
-    });
-}
+});
 
 var myShops = document.querySelector('.my-shops');
 if (myShops) {

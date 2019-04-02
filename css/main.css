@@ -15301,7 +15301,7 @@ input[type="radio"].visually-hidden {
     .order-details__quantity {
       width: 156px; } }
   .order-details__quantity.calc-item-box {
-    margin: 18px 18px 0 7px; }
+    margin: 18px 17px 0 7px; }
     @media (min-width: 768px) {
       .order-details__quantity.calc-item-box {
         margin: 0; } }
