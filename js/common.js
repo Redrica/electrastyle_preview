@@ -5004,25 +5004,14 @@ $('.order__link-more').on('click', function (evt) {
 /* конец раскрытия карточек */
 
 /* СЕЛЕКТЫ */
-var myData = document.querySelector('.my-data');
-if (myShops || myData || dealers) {
-    easydropdown.all({
-        behavior: {
-            useNativeUiOnMobile: true
-        }
-    });
-    var eddShops = easydropdown('#type', {
-        behavior: {
-            useNativeUiOnMobile: false
-        }
-    });
 
-    var eddData = easydropdown('#position', {
-        behavior: {
-            useNativeUiOnMobile: true
-        }
+$(document).ready(function () {
+    $('select').select2({
+        width: '100%',
+        placeholder: "Выберите",
+        allowClear: true
     });
-}
+});
 
 var myShops = document.querySelector('.my-shops');
 if (myShops) {
@@ -5088,8 +5077,8 @@ if (myShops) {
 }
 
 /* слайдеры в статье */
-
-if ($('.article')) {
+var article = document.querySelector('.article');
+if (article) {
 
     var thisSlideInMain = $('.art-slider--main .art-slider__current');
     var allSlidesInMain = $('.art-slider--main .art-slider__all');
@@ -5203,10 +5192,22 @@ if (manager) {
 
     makeManagerSlick();
 
-    $(window).on('resize', function () {
-        $(managerFeaturesSlider).slick('unslick');
-        setTimeout(makeManagerSlick(), 500);
+    var currentWidth = $(window).width();
 
+    $(window).on('resize', function () {
+        var newWidth = $(window).width();
+        if (newWidth !== currentWidth) { // чтобы реагировало только на изменение ширины(!), нужно для мобильных устройств
+            console.log('предыдущая ширина ' + currentWidth + ', текущая ширина ' + newWidth);
+            // если новая ширина требует слайдер И предыдущая его не требовала
+            if(newWidth < 600 && currentWidth > 599 ) {
+                console.log('перезапускаю слайдер');
+                $(managerFeaturesSlider).slick('unslick');
+                setTimeout(makeManagerSlick(), 500);
+            } else {
+                console.log('перезапуск слайдера не требуется');
+            }
+        } // перезаписываем действующую ширину экрана
+        currentWidth = $(window).width();
         closePopups();
     });
 
@@ -5312,7 +5313,6 @@ if (contacts) {
     // функция переноса
     var moveMap = function (from, to) {
         for (var i = 0; i < maps.length; i++) {
-          console.log(maps[i]);
             var removed = from[i].removeChild(maps[i]);
             to[i].appendChild(removed);
         }
@@ -5348,73 +5348,56 @@ if (contacts) {
         }
     });
 
-    // слайдеры
-    var teamSlider = $('.contacts__team-list--team');
-    $(teamSlider).slick({
-        responsive: [
-            {
-                breakpoint: 4000,
-                settings: 'unslick'
-            },
-            {
-                breakpoint: 1366,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    arrows: true,
-                    fade: false,
-                    dots: false,
-                    autoplay: false,
-                    speed: 500
+    // слайдеры менеджеров и руководства
+    var teamSliders = $('.contacts__team-list');
+    var makeTeamSliders = function () {
+        $(teamSliders).slick({
+            responsive: [
+                {
+                    breakpoint: 4000,
+                    settings: 'unslick'
+                },
+                {
+                    breakpoint: 1366,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        arrows: true,
+                        fade: false,
+                        dots: false,
+                        autoplay: false,
+                        speed: 500
+                    }
+                },
+                {
+                    breakpoint: 920,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1
+                    }
                 }
-            },
-            {
-                breakpoint: 920,
-                settings: {
-                    slidesToShow: 2
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1
-                }
-            }
-        ]
-    });
+            ]
+        });
+    };
 
-    var leadersSlider = $('.contacts__team-list--leaders');
-    $(leadersSlider).slick({
-        responsive: [
-            {
-                breakpoint: 4000,
-                settings: 'unslick'
-            },
-            {
-                breakpoint: 1366,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    arrows: true,
-                    fade: false,
-                    dots: false,
-                    autoplay: false,
-                    speed: 500
-                }
-            },
-            {
-                breakpoint: 920,
-                settings: {
-                    slidesToShow: 2
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1
-                }
+    makeTeamSliders();
+
+    currentWidth = $(window).width();
+
+    $(window).on('resize', function () {
+        var newWidth = $(window).width();
+        if (newWidth !== currentWidth) {
+            if(newWidth < 1366 && currentWidth > 1365 ) {
+                $(teamSliders).slick('unslick');
+                makeTeamSliders();
             }
-        ]
+        }
+        currentWidth = $(window).width();
     });
 }
 
@@ -5427,7 +5410,7 @@ if (questions) {
             return false;
         } else {
             $('.questions__tab').toggleClass('tabs__tab--active btn-white');
-            $('.questions__list').toggleClass('hidden');
+            $('.questions__screen').toggleClass('hidden');
 
             for (var i = 0; i < scrollContainers.length; i++) {
                 var ps = new PerfectScrollbar(scrollContainers[i], {
@@ -5452,11 +5435,13 @@ if (questions) {
     }
 
     /* отображение подсказки */
-    var questionsTip = document.querySelector('.questions__tip');
-    var questionItems = document.querySelectorAll('.questions__list-item');
+    var questionsTips = document.querySelectorAll('.questions__tip');
+    var questionLists = document.querySelectorAll('.questions__list');
 
-    if (questionItems.length === 0) {
-      questionsTip.classList.remove('hidden');
+    for (i = 0; i < questionLists.length; i++) {
+        if (questionLists[i].children.length === 0) {
+            questionsTips[i].classList.remove('hidden');
+        }
     }
 }
 
@@ -5513,27 +5498,22 @@ if (lookbook) {
               }
           ]
       });
-      console.log('slick\'s been made');
   };
 
   makeLbSlick();
 
-  var tabletUpWidth = window.matchMedia('min-width: 920px');
-
-  // var lbSliderHandler = function () {
-  //   if (tabletUpWidth.matches) {
-  //       $(lbSlider).slick('unslick');
-  //   } else if (!tabletUpWidth.matches){
-  //       $(lbSlider).slick('unslick');
-  //       makeLbSlick();
-  //   }
-  // };
+    currentWidth = $(window).width();
 
     $(window).on('resize', function () {
-      $(lbSlider).slick('unslick');
-      makeLbSlick()
+      var newWidth = $(window).width();
+      if (newWidth !== currentWidth) {
+          if(newWidth < 920 && currentWidth > 919 ) {
+              $(lbSlider).slick('unslick');
+              makeLbSlick();
+          }
+      }
+        currentWidth = $(window).width();
     });
-    // tabletUpWidth.addListener(lbSliderHandler);
 }
 
 var dealers = document.querySelector('.dealers');
@@ -5543,6 +5523,14 @@ if (dealers) {
     var select = document.getElementById('country-select');
     var dealersGroups = dealers.querySelectorAll('.dealers__content');
 
+    $('.dealers .input-field__input').on('change', function() {
+        var index = select.options.selectedIndex;
+        for (var i = 0; i < select.options.length; i++) {
+            dealersGroups[i].classList.add('hidden');
+            dealersGroups[index].classList.remove('hidden');
+        }
+    });
+    
     select.addEventListener('change', function() {
         var index = select.options.selectedIndex;
 
